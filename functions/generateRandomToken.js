@@ -220,12 +220,15 @@ const customRegexes = [{
 
 exports.handler = async (event, context) => {
     const randomIdx = Math.floor(Math.random() * 57);
+    const randomRegex = customRegexes[randomIdx];
+
     return {
         statusCode: 200,
         body: JSON.stringify({
-            type: customRegexes[randomIdx].name,
-            category: customRegexes[randomIdx].category,
-            value: randExp(/customRegexes[randomIdx].regex/)
+            type: randomRegex.name,
+            category: randomRegex.category,
+            regex: randomRegex.regex,
+            value: randExp(randomRegex.regex)
         })
     };
 }
