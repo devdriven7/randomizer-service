@@ -105,6 +105,11 @@ const customRegexes = [
       /[-]{5}BEGIN EC PRIVATE KEY[-]{5}([\s\S]*?)[-]{5}END EC PRIVATE KEY[-]{5}/,
   },
   {
+    name: 'Airtable API Key',
+    category: 'API Key',
+    regex: /(key[a-zA-z0-9]{14})/,
+  },
+  {
     name: 'Slack Access Token',
     category: 'Access Token',
     regex: /xox[baprs]-([0-9a-z]{10,48})[-0-9a-z]+\b/,
@@ -182,11 +187,6 @@ const customRegexes = [
     regex: /PMAK-[a-f0-9]{24}-[a-f0-9]{34}/,
   },
   {
-    name: 'Twitter Bearer Token',
-    category: 'API Key',
-    regex: /\b(?<!Bearer\s)[A]{21}[0-9a-z-_%?]{80,110}(?![A-Za-z0-9\/+=])/,
-  },
-  {
     name: 'Amazon AWS Access Key ID',
     category: 'API Key',
     regex: /(AKIA[0-9A-Z]{16})/,
@@ -260,7 +260,7 @@ const customRegexes = [
     name: 'OpenSSH Private Key',
     category: 'API Key',
     regex:
-      /[-]{5}BEGIN OPENSSH PRIVATE KEY[-]{5}([\s\S]*?)[-]{5}END OPENSSH PRIVATE KEY[-]{5}/,
+      /[-]{5}BEGIN OPENSSH PRIVATE KEY[-]{5}([\\s\\S]*?)[-]{5}END OPENSSH PRIVATE KEY[-]{5}/,
   },
   {
     name: 'GitHub Personal Access Token',
@@ -274,17 +274,16 @@ const customRegexes = [
   },
 ];
 
-exports.handler = async (event, context) => {
-    const randomIdx = Math.floor(Math.random() * 57);
+module.exports = {
+  generateToken: () => {
+    const randomIdx = Math.floor(Math.random() * customRegexes.length - 1);
     const randomRegex = customRegexes[randomIdx];
 
     return {
-        statusCode: 200,
-        body: JSON.stringify({
-            type: randomRegex.name,
-            category: randomRegex.category,
-            regex: randomRegex.regex.toString(),
-            value: randExp(randomRegex.regex)
-        })
+      type: randomRegex.name,
+      category: randomRegex.category,
+      regex: randomRegex.regex.toString(),
+      value: randExp(randomRegex.regex),
     };
-}
+  }
+};

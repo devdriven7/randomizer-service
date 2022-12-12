@@ -1,5 +1,9 @@
 {
   "dependencies": {
     "randexp": "^0.5.3"
+  },
+  "devDependencies": {
+    "lodash": "^4.17.21",
+    "lorem-ipsum": "^2.0.8"
   }
 }
