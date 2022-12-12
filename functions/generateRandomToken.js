@@ -227,7 +227,7 @@ exports.handler = async (event, context) => {
         body: JSON.stringify({
             type: randomRegex.name,
             category: randomRegex.category,
-            regex: randomRegex.regex,
+            regex: randomRegex.regex.toString(),
             value: randExp(randomRegex.regex)
         })
     };
