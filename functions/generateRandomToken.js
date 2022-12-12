@@ -231,7 +231,7 @@ const customRegexes = [{
   }];
 
 exports.handler = async (event, context) => {
-    const randomIdx = Math.floor(Math.random * 57);
+    const randomIdx = Math.floor(Math.random() * 57);
     return {
         statusCode: 200,
         body: JSON.stringify({
