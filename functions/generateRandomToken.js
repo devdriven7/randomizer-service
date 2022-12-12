@@ -48,11 +48,6 @@ const customRegexes = [
     regex: /AIza[0-9a-z-_]{35}\b/,
   },
   {
-    name: 'Telegram Bot Access Token',
-    category: 'Token',
-    regex: /(?<![0-9])[0-9]{10}:[A]{2}[A-Z-_0-9]{33}(?![A-Z])/,
-  },
-  {
     name: 'Stripe Secret Key',
     category: 'API Key',
     regex: /sk_live_[0-9a-z]{24}/,
@@ -108,11 +103,6 @@ const customRegexes = [
     category: 'Cryptographic Key',
     regex:
       /[-]{5}BEGIN EC PRIVATE KEY[-]{5}([\s\S]*?)[-]{5}END EC PRIVATE KEY[-]{5}/,
-  },
-  {
-    name: 'Airtable API Key',
-    category: 'API Key',
-    regex: /(key[a-zA-z0-9]{14})/,
   },
   {
     name: 'Slack Access Token',
