@@ -5,15 +5,21 @@ exports.handler = async (event, context) => {
         const collectionData = generateCollectionData();
         return {
             statusCode: 200,
-            body: collectionData
+            body: JSON.stringify(collectionData),
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+            },
         };
     } catch(err) {
         console.error('Err occurred while generating collection data', err);
         return {
             statusCode: 500,
-            body: {
+            body: JSON.stringify({
                 "error": err
-            }
+            }),
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8',
+            },
         }
     }
 }

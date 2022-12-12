@@ -5,15 +5,21 @@ exports.handler = async (event, context) => {
         const token = generateToken();
         return {
             statusCode: 200,
-            body: token
+            body: JSON.stringify(token),
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
         };
     } catch(err) {
         console.error('Err occurred while generating token', err);
         return {
             statusCode: 500,
-            body: {
+            body: JSON.stringify({
                 "error": err
-            }
+            }),
+            headers: {
+                'Content-Type': 'application/json; charset=utf-8'
+            },
         }
     }
 }
