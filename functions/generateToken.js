@@ -1,11 +1,19 @@
-const tokenGenerator = require('../util/tokenGenerator');
+const { generateToken } = require('../util/tokenGenerator');
 
 exports.handler = async (event, context) => {
-    const randomIdx = Math.floor(Math.random() * 57);
-    const randomRegex = customRegexes[randomIdx];
-
-    return {
-        statusCode: 200,
-        body: JSON.stringify(tokenGenerator.generate())
-    };
+    try {
+        const token = generateToken();
+        return {
+            statusCode: 200,
+            body: token
+        };
+    } catch(err) {
+        console.error('Err occurred while generating token', err);
+        return {
+            statusCode: 500,
+            body: {
+                "error": err
+            }
+        }
+    }
 }

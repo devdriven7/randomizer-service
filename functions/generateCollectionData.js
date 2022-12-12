@@ -1,19 +1,19 @@
-const collectionService = require('../service/collection');
+const { generateCollectionData } = require('../service/collection');
 
 exports.handler = async (event, context) => {
     try {
-        const collectionData = collectionService.generateCollectionData();
+        const collectionData = generateCollectionData();
         return {
             statusCode: 200,
-            body: JSON.stringify(collectionData)
+            body: collectionData
         };
     } catch(err) {
         console.error('Err occurred while generating collection data', err);
         return {
             statusCode: 500,
-            body: JSON.stringify({
+            body: {
                 "error": err
-            })
+            }
         }
     }
 }
