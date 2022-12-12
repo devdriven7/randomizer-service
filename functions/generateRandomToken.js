@@ -27,7 +27,7 @@ const customRegexes = [{
   }, {
     "name": "Zapier Webhook",
     "category": "Webhook URL",
-    "regex": /https://(?:www.)?hooks.zapier.com/hooks/catch/[a-z0-9]+/[a-z0-9]+//
+    "regex": /https:\/\/(?:www.)?hooks.zapier.com\/hooks\/catch\/[a-z0-9]+\/[a-z0-9]+\//
   }, {
     "name": "Square Access Key",
     "category": "Access Token",
@@ -228,7 +228,7 @@ exports.handler = async (event, context) => {
             type: randomRegex.name,
             category: randomRegex.category,
             regex: randomRegex.regex,
-            value: randExp(randomR.regex)
+            value: randExp(randomRegex.regex)
         })
     };
 }
