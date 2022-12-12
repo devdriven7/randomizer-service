@@ -228,7 +228,7 @@ exports.handler = async (event, context) => {
             type: randomRegex.name,
             category: randomRegex.category,
             regex: randomRegex.regex,
-            value: randExp(randomRegex.regex)
+            value: randExp(randomR.regex)
         })
     };
 }
