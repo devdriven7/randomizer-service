@@ -1,7 +1,8 @@
 const { generateCollectionData } = require('../service/collection');
+const _ = require('lodash');
 
 exports.handler = async (event, context) => {
-    const collectionItemCount = event.queryStringParameters.itemCount || 15;
+    const collectionItemCount = _.get(event, 'queryStringParameters.itemCount') || 15;
     try {
         const collectionData = generateCollectionData(collectionItemCount);
         return {
