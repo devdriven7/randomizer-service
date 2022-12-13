@@ -9,36 +9,38 @@ const {
 } = require('../util/textGenerator');
 const { generateRandomNumber } = require('../util/randomnessUtil');
 
-const METHOD_TYPES = [
+const REQUEST_METHOD_TYPES = [
   {
     type: 'GET',
-    name: `GET ${randomWords(2).join(' ')}`,
+    name: `${_.startCase(randomWords(2).join(' '))}`,
     url: generateUrl(true),
   },
   {
     type: 'POST',
-    name: `POST ${randomWords(2).join(' ')}`,
+    name: `${_.startCase(randomWords(2).join(' '))}`,
     url: generateUrl(),
   },
   {
     type: 'PUT',
-    name: `PUT ${randomWords(2).join(' ')}`,
+    name: `${_.startCase(randomWords(2).join(' '))}`,
     url: generateUrl(),
   },
   {
     type: 'DELETE',
-    name: `DELETE ${randomWords(2).join(' ')}`,
+    name: `${_.startCase(randomWords(2).join(' '))}`,
     url: generateUrl(true),
   },
   {
     type: 'PATCH',
-    name: `PATCH ${randomWords(2).join(' ')}`,
+    name: `${_.startCase(randomWords(2).join(' '))}`,
     url: generateUrl(),
   },
 ];
 
+const AUTH_TYPES = [];
+
 const generateCollectionName = () => {
-  return `${generateWords(1)} Collection`;
+  return `${_.startCase(generateWords(1))} Collection`;
 };
 
 const generateCollectionDescription = () => {
@@ -71,8 +73,23 @@ const generateEntityEvents = () => {
 
 const generateAuthData = () => {};
 
+const generateCollectionFolder = (itemCount) => {
+  const folderData = {
+    name: generateCollectionName(),
+    description: generateCollectionDescription(),
+    item: [],
+    event: generateEntityEvents(),
+  };
+
+  for (let i = 0; i < itemCount; i++) {
+    folderData.item.push(generateRequestData());
+  }
+
+  return folderData;
+};
+
 const generateRequestData = () => {
-  const method = _.sample(METHOD_TYPES);
+  const method = _.sample(REQUEST_METHOD_TYPES);
   return {
     name: method.name,
     event: generateEntityEvents(),
@@ -84,8 +101,22 @@ const generateRequestData = () => {
   };
 };
 
+const generateCollectionItems = (itemCount) => {
+  const items = [];
+
+  for (let i = 0; i < itemCount; i++) {
+    if (generateRandomNumber(10) < 4) {
+      items.push(generateCollectionFolder(i));
+    } else {
+      items.push(generateRequestData());
+    }
+  }
+
+  return items;
+};
+
 module.exports = {
-  generateCollectionData: () => {
+  generateCollectionData: (collectionItemCount) => {
     return {
       collection: {
         info: {
@@ -94,7 +125,7 @@ module.exports = {
           schema:
             'https://schema.getpostman.com/json/collection/v2.1.0/collection.json',
         },
-        item: [generateRequestData()],
+        item: generateCollectionItems(collectionItemCount),
       },
     };
   },

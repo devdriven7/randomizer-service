@@ -1,8 +1,9 @@
 const { generateCollectionData } = require('../service/collection');
 
 exports.handler = async (event, context) => {
+    const collectionItemCount = event.queryStringParameters.itemCount || 15;
     try {
-        const collectionData = generateCollectionData();
+        const collectionData = generateCollectionData(collectionItemCount);
         return {
             statusCode: 200,
             body: JSON.stringify(collectionData),
