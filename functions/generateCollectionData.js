@@ -2,7 +2,7 @@ const { generateCollectionData } = require('../service/collection');
 const _ = require('lodash');
 
 exports.handler = async (event, context) => {
-    const collectionItemCount = _.get(event, 'queryStringParameters.itemCount') || 15;
+    const collectionItemCount = Math.max(10, _.get(event, 'queryStringParameters.itemCount', 10));
     try {
         const collectionData = generateCollectionData(collectionItemCount);
         return {
