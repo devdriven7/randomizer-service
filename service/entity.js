@@ -165,8 +165,8 @@ const generateRequestData = () => {
       url: method.url,
       method: method.type,
       header: generateHeaders(),
+      auth: generateAuthData(),
     },
-    auth: generateAuthData(),
   };
 };
 

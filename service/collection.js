@@ -17,10 +17,18 @@ const generateCollectionDescription = () => {
   return generateSentences(4, generateRandomNumber(10) < 5);
 };
 
+const generateFolderName = () => {
+  return `${_.startCase(generateWords(1))} Folder`;
+};
+
+const generateFolderDescription = () => {
+  return generateSentences(2, generateRandomNumber(10) < 5);
+};
+
 const generateCollectionFolder = (itemCount) => {
   const folderData = {
-    name: generateCollectionName(),
-    description: generateCollectionDescription(),
+    name: generateFolderName(),
+    description: generateFolderDescription(),
     item: [],
     event: generateEntityEvents(),
     auth: generateAuthData(),
