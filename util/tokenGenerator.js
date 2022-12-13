@@ -381,7 +381,7 @@ module.exports = {
     const randomIdx = Math.floor(Math.random() * (allTokenList.length - 1));
     const randomToken = customToken || allTokenList[randomIdx];
 
-    totalTokenLeaks++;
+    totalTokenLeaks += 1;
 
     return {
       type: randomToken.name,
