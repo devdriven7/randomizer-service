@@ -332,7 +332,7 @@ module.exports = {
   GITHUB_PERSONAL_ACCESS_TOKEN,
   GOOGLE_OAUTH_TOKEN,
   generateToken: (customToken) => {
-    const randomIdx = Math.floor(Math.random() * allTokenList.length - 1);
+    const randomIdx = Math.floor(Math.random() * (allTokenList.length - 1));
     const randomToken = customToken || allTokenList[randomIdx];
 
     return {
