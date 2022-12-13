@@ -22,30 +22,6 @@ const lorem = new LoremIpsum({
 });
 
 const domains = ['.com', '.net', '.org', '.in', '.us', '.uk', '.co.in', '.ai'];
-const headers = [
-  {
-    key: 'Content-Type',
-    value: 'application/json',
-  },
-  function () {
-    return {
-      key: 'x-api-key',
-      value: generateToken(tokenGenerator.POSTMAN_API_KEY).value,
-    };
-  },
-  function () {
-    return {
-      key: 'slack-access-token',
-      value: generateToken(tokenGenerator.SLACK_ACCESS_TOKEN).value,
-    };
-  },
-  function () {
-    return {
-      key: 'Authorization',
-      value: `Bearer ${generateToken(tokenGenerator.BEARER_TOKEN).value}`,
-    };
-  },
-];
 
 module.exports = {
   generateWords: (maxWords = 2, includeToken = false) => {
@@ -90,10 +66,5 @@ module.exports = {
     }
 
     return url;
-  },
-  generateHeaders: (maxCount = 4, includeToken = false) => {
-    return _.shuffle(headers)
-      .slice(0, generateRandomNumber(headers.length + 1, 1))
-      .map((header) => (_.isFunction(header) ? header() : header));
   },
 };
