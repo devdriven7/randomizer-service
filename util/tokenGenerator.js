@@ -374,6 +374,9 @@ module.exports = {
   getTokenLeakCount: () => {
     return totalTokenLeaks;
   },
+  resetTokenLeakCount: () => {
+    totalTokenLeaks = 0;
+  },
   generateToken: (customToken) => {
     const randomIdx = Math.floor(Math.random() * (allTokenList.length - 1));
     const randomToken = customToken || allTokenList[randomIdx];

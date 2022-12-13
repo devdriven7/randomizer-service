@@ -2,7 +2,10 @@ const randomWords = require('random-words');
 const _ = require('lodash');
 
 const { generateWords, generateSentences } = require('../util/textGenerator');
-const { getTokenLeakCount } = require('../util/tokenGenerator');
+const {
+  getTokenLeakCount,
+  resetTokenLeakCount,
+} = require('../util/tokenGenerator');
 const {
   generateEntityEvents,
   generateRequestData,
@@ -58,7 +61,7 @@ const generateCollectionItems = (itemCount) => {
 
 module.exports = {
   generateCollectionData: (collectionItemCount) => {
-    return {
+    const collectionData = {
       meta: {
         totalTokenLeaks: getTokenLeakCount(),
       },
@@ -72,5 +75,8 @@ module.exports = {
         item: generateCollectionItems(collectionItemCount),
       },
     };
+    resetTokenLeakCount();
+
+    return collectionData;
   },
 };
