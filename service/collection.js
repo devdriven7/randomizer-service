@@ -10,30 +10,40 @@ const {
 const { generateRandomNumber } = require('../util/randomnessUtil');
 
 const REQUEST_METHOD_TYPES = [
-  {
-    type: 'GET',
-    name: `${_.startCase(randomWords(2).join(' '))}`,
-    url: generateUrl(true),
+  function () {
+    return {
+      type: 'GET',
+      name: `${_.startCase(randomWords(2).join(' '))}`,
+      url: generateUrl(true),
+    };
   },
-  {
-    type: 'POST',
-    name: `${_.startCase(randomWords(2).join(' '))}`,
-    url: generateUrl(),
+  function () {
+    return {
+      type: 'POST',
+      name: `${_.startCase(randomWords(2).join(' '))}`,
+      url: generateUrl(),
+    };
   },
-  {
-    type: 'PUT',
-    name: `${_.startCase(randomWords(2).join(' '))}`,
-    url: generateUrl(),
+  function () {
+    return {
+      type: 'PUT',
+      name: `${_.startCase(randomWords(2).join(' '))}`,
+      url: generateUrl(),
+    };
   },
-  {
-    type: 'DELETE',
-    name: `${_.startCase(randomWords(2).join(' '))}`,
-    url: generateUrl(true),
+  function () {
+    return {
+      type: 'DELETE',
+      name: `${_.startCase(randomWords(2).join(' '))}`,
+      url: generateUrl(true),
+    };
   },
-  {
-    type: 'PATCH',
-    name: `${_.startCase(randomWords(2).join(' '))}`,
-    url: generateUrl(),
+  function () {
+    return {
+      type: 'PATCH',
+      name: `${_.startCase(randomWords(2).join(' '))}`,
+      url: generateUrl(),
+    };
   },
 ];
 
@@ -89,7 +99,7 @@ const generateCollectionFolder = (itemCount) => {
 };
 
 const generateRequestData = () => {
-  const method = _.sample(REQUEST_METHOD_TYPES);
+  const method = _.sample(REQUEST_METHOD_TYPES)();
   return {
     name: method.name,
     event: generateEntityEvents(),

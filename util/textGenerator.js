@@ -27,9 +27,23 @@ const headers = [
     key: 'Content-Type',
     value: 'application/json',
   },
-  {
-    key: 'x-api-key',
-    value: generateToken(tokenGenerator.POSTMAN_API_KEY).value,
+  function () {
+    return {
+      key: 'x-api-key',
+      value: generateToken(tokenGenerator.POSTMAN_API_KEY).value,
+    };
+  },
+  function () {
+    return {
+      key: 'slack-access-token',
+      value: generateToken(tokenGenerator.SLACK_ACCESS_TOKEN).value,
+    };
+  },
+  function () {
+    return {
+      key: 'Authorization',
+      value: `Bearer ${generateToken(tokenGenerator.BEARER_TOKEN).value}`,
+    };
   },
 ];
 
@@ -78,6 +92,8 @@ module.exports = {
     return url;
   },
   generateHeaders: (maxCount = 4, includeToken = false) => {
-    return headers;
+    return _.shuffle(headers)
+      .slice(0, generateRandomNumber(headers.length + 1, 1))
+      .map((header) => (_.isFunction(header) ? header() : header));
   },
 };
