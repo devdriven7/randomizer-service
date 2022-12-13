@@ -1,5 +1,7 @@
 const randExp = require('randexp').randexp;
 
+let totalTokenLeaks = 0;
+
 const POSTMAN_COLLECTION_ACCESS_KEY = {
     name: 'Postman Collection Access Key',
     category: 'API Key',
@@ -369,9 +371,14 @@ module.exports = {
   GITHUB_PERSONAL_ACCESS_TOKEN,
   GOOGLE_OAUTH_TOKEN,
   APIKeyTokens,
+  getTokenLeakCount: () => {
+    return totalTokenLeaks;
+  },
   generateToken: (customToken) => {
     const randomIdx = Math.floor(Math.random() * (allTokenList.length - 1));
     const randomToken = customToken || allTokenList[randomIdx];
+
+    totalTokenLeaks++;
 
     return {
       type: randomToken.name,

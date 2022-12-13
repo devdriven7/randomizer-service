@@ -16,12 +16,12 @@ const AUTH_TYPES = [
       type: 'apikey',
       apikey: [
         {
-          key: 'value',
+          key: 'key',
           value: randomWords(1)[0],
           type: 'string',
         },
         {
-          key: 'key',
+          key: 'value',
           value: generateToken(_.sample(tokenGenerator.APIKeyTokens)).value,
           type: 'string',
         },
