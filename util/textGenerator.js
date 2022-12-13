@@ -1,7 +1,14 @@
 const LoremIpsum = require('lorem-ipsum').LoremIpsum;
+const randomWords = require('random-words');
+const _ = require('lodash');
+const { randomInt } = require('crypto');
 
-const { generateToken } = require('./tokenGenerator');
-const { generateRandomNumber } = require('./randomnessUtil');
+const tokenGenerator = require('./tokenGenerator');
+const { generateToken } = tokenGenerator;
+const {
+  generateRandomNumber,
+  generateRandomKeyValuePairs,
+} = require('./randomnessUtil');
 
 const lorem = new LoremIpsum({
   sentencesPerParagraph: {
@@ -13,6 +20,18 @@ const lorem = new LoremIpsum({
     min: 4,
   },
 });
+
+const domains = ['.com', '.net', '.org', '.in', '.us', '.uk', '.co.in', '.ai'];
+const headers = [
+  {
+    key: 'Content-Type',
+    value: 'application/json',
+  },
+  {
+    key: 'x-api-key',
+    value: generateToken(tokenGenerator.POSTMAN_API_KEY).value,
+  },
+];
 
 module.exports = {
   generateWords: (maxWords = 2, includeToken = false) => {
@@ -44,5 +63,21 @@ module.exports = {
     }
 
     return sentences;
+  },
+  generateUrl: (hasQueryParams = false, maxPath = 2, includeToken = false) => {
+    let host = [...randomWords(2), randomInt(100000, 999999)].join('-');
+    let urlOrigin = ['https', '://', host, _.sample(domains)].join('');
+    let url = [urlOrigin, ...randomWords(2)].join('/');
+
+    if (hasQueryParams) {
+      let params = generateRandomKeyValuePairs(generateRandomNumber(4, 1));
+      params = params.map((pair) => `${pair.key}=${pair.value}`).join('&');
+      params.length && (url += `?${params}`);
+    }
+
+    return url;
+  },
+  generateHeaders: (maxCount = 4, includeToken = false) => {
+    return headers;
   },
 };
