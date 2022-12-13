@@ -62,9 +62,6 @@ const generateCollectionItems = (itemCount) => {
 module.exports = {
   generateCollectionData: (collectionItemCount) => {
     const collectionData = {
-      meta: {
-        totalTokenLeaks: getTokenLeakCount(),
-      },
       collection: {
         info: {
           name: generateCollectionName(),
@@ -73,6 +70,9 @@ module.exports = {
             'https://schema.getpostman.com/json/collection/v2.1.0/collection.json',
         },
         item: generateCollectionItems(collectionItemCount),
+      },
+      meta: {
+        totalTokenLeaks: getTokenLeakCount(),
       },
     };
     resetTokenLeakCount();
