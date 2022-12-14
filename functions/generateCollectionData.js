@@ -1,8 +1,13 @@
 const { generateCollectionData } = require('../service/collection');
 const _ = require('lodash');
 
+const maxAllowedItemCount = 10;
+
 exports.handler = async (event, context) => {
-    const collectionItemCount = Math.max(10, _.get(event, 'queryStringParameters.itemCount', 10));
+    const collectionItemCount = _.get(event, 'queryStringParameters.itemCount', 10);
+    if (collectionItemCount > maxAllowedItemCount) {
+        collectionItemCount = maxAllowedItemCount;
+    }
     try {
         const collectionData = generateCollectionData(collectionItemCount);
         return {
